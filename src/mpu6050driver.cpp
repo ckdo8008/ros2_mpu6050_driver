@@ -77,7 +77,13 @@ void MPU6050Driver::declareParameters()
 int main(int argc, char* argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<MPU6050Driver>());
-  rclcpp::shutdown();
+  // rclcpp::spin(std::make_shared<MPU6050Driver>());
+  // rclcpp::shutdown();
+
+  auto node = std::make_shared<MPU6050Driver>(); // What is auto??
+  
+  rclcpp::executors::SingleThreadedExecutor executor;
+  executor.add_node(node);
+  executor.spin();
   return 0;
 }
